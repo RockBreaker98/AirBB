@@ -1,0 +1,42 @@
+@model AirBB.Models.Experience
+@{
+    ViewData["Title"] = "Experience Details";
+}
+
+<h2>Experience Details</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <table class="table">
+            <tr>
+                <th>Title</th>
+                <td>@Model.Title</td>
+            </tr>
+            <tr>
+                <th>Category</th>
+                <td>@Model.Category?.Name</td>
+            </tr>
+            <tr>
+                <th>List Price</th>
+                <td>@Model.Price.ToString("c")</td>
+            </tr>
+            <tr>
+                <th>Discount Percent</th>
+                <td>@Model.DiscountPercent %</td>
+            </tr>
+            <tr>
+                <th>Your Price</th>
+                <td>@Model.DiscountPrice.ToString("c")</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>@Model.Description</td>
+            </tr>
+        </table>
+
+        <a asp-action="List" class="btn btn-secondary">Back to List</a>
+        <!-- Placeholder for future booking:
+        <a class="btn btn-primary disabled">Book Now</a>
+        -->
+    </div>
+</div>

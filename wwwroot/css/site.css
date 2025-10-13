@@ -1,0 +1,18 @@
+
+body {
+    background: url('/images/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.45);
+    padding: 60px;
+    border-radius: 15px;
+}
+
+/* Make overlay text readable */
+.overlay h1,
+.overlay p {
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(0,0,0,.5);
+}

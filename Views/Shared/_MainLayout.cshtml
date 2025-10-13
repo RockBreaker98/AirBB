@@ -1,0 +1,73 @@
+@{
+    Layout = "_Layout";
+
+    // For active menu highlighting
+    string controller = ViewContext.RouteData.Values["controller"]?.ToString() ?? "";
+    string action     = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+}
+
+<header>
+    <!-- Add 'fixed-top' to the nav if you want it pinned. If you do, add top padding to main. -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+        <div class="container-fluid">
+            <!-- Brand -->
+            <a class="navbar-brand fw-bold" asp-controller="Home" asp-action="Index">AirBB</a>
+
+            <!-- Toggler -->
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                    aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Links -->
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link @(controller=="Residence" ? "active" : "")"
+                           asp-controller="Residence" asp-action="List">Homes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(controller=="Experience" ? "active" : "")"
+                           asp-controller="Experience" asp-action="List">Experiences</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link @(controller=="Service" ? "active" : "")"
+                           asp-controller="Service" asp-action="List">Services</a>
+                    </li>
+                </ul>
+
+                <!-- Right -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link fw-semibold"
+                           asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Main Content -->
+<main role="main" class="flex-shrink-0">
+    
+    <div class="container-fluid p-0">
+        @RenderBody()
+    </div>
+</main>
+
+<!-- Footer (phase-1 requires these links here) -->
+<footer class="bg-dark text-light text-center py-3 mt-5">
+    <div class="container">
+        <a asp-controller="Home" asp-action="Support"           class="text-light text-decoration-none me-2">Support</a> |
+        <a asp-controller="Home" asp-action="CancellationPolicy" class="text-light text-decoration-none mx-2">Cancellation Policy</a> |
+        <a asp-controller="Home" asp-action="Terms"              class="text-light text-decoration-none mx-2">Terms &amp; Conditions</a> |
+        <a asp-controller="Home" asp-action="CookiePolicy"       class="text-light text-decoration-none ms-2">Cookie Policies</a>
+    </div>
+    <p class="small mt-2 mb-0">&copy; @DateTime.Now.Year - AirBB</p>
+</footer>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}
