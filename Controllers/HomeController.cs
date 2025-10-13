@@ -4,29 +4,29 @@ namespace AirBB.Controllers
 {
     public class HomeController : Controller
     {
-    public IActionResult Index()
+        public IActionResult Index()
         {
             return View();
         }
 
         public IActionResult Support()
         {
-            return View();
+            return Content("Home controller, Support action");
         }
 
         public IActionResult CancellationPolicy()
         {
-            return View();
+            return Content("Home controller, CancellationPolicy action");
         }
 
         public IActionResult Terms()
         {
-            return View();
+            return Content("Home controller, Terms action");
         }
 
         public IActionResult CookiePolicy()
         {
-            return View();
+            return Content("Home controller, CookiePolicy action");
         }
     }
 }
