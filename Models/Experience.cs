@@ -8,8 +8,7 @@ namespace AirBB.Models
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
-
-        // optional discount to mirror GuitarShop
+        
         public decimal DiscountPercent { get; set; } = 0m;
 
         [NotMapped]

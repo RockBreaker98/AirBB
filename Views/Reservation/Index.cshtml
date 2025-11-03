@@ -1,0 +1,53 @@
+@model List<Reservation>
+
+@{
+    ViewData["Title"] = "My Reservations";
+    var count = (int?)ViewBag.ResCount ?? 0;
+}
+<input type="hidden" id="resCountHidden" value="@count" />
+
+<h2>My Reservations</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">No reservations yet.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="width:120px">Image</th>
+                <th>Residence</th>
+                <th>Location</th>
+                <th>Dates</th>
+                <th>Price/Night</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>
+                    <img src="~/images/@(r.Residence?.ResidencePicture ?? "placeholder.jpg")"
+                         alt="@r.Residence?.Name" class="img-thumbnail" />
+                </td>
+                <td>@(r.Residence?.Name ?? "Unknown")</td>
+                <td>@(r.Residence?.Location?.Name ?? "Unknown")</td>
+                <td>@r.ReservationStartDate: – @r.ReservationEndDate:</td>
+                <td>$@(r.Residence?.PricePerNight ?? 0)</td>
+                <td>
+                    <form asp-action="Cancel" method="post">
+                        <!-- Cancel expects the reservation ID, not residenceId -->
+                        <input type="hidden" name="id" value="@r.ReservationId" />
+                        <button class="btn btn-sm btn-outline-danger">Cancel</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+<a asp-controller="Home" asp-action="Index" class="btn btn-secondary">Back to Home</a>

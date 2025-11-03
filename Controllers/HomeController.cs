@@ -1,32 +1,129 @@
+using System;
+using System.Globalization;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using AirBB.Models;
 
 namespace AirBB.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly AirBBContext _context;
+
+        // session keys – store ONLY primitive values here
+        private const string SessLocation = "airbb-location";
+        private const string SessGuests   = "airbb-guests";
+        private const string SessStart    = "airbb-start";
+        private const string SessEnd      = "airbb-end";
+
+        public HomeController(AirBBContext ctx)
         {
-            return View();
+            _context = ctx;
         }
 
-        public IActionResult Support()
+        // GET: /
+        public IActionResult Index(int? activeLocationId, int? guests, DateTime? startDate, DateTime? endDate)
         {
-            return Content("Home controller, Support action");
+            // 1. read prev values from session
+            int? storedLocationId = HttpContext.Session.GetInt32(SessLocation);
+            int? storedGuests     = HttpContext.Session.GetInt32(SessGuests);
+            string? storedStart   = HttpContext.Session.GetString(SessStart);
+            string? storedEnd     = HttpContext.Session.GetString(SessEnd);
+
+            // 2. decide what to use (query wins over session)
+            int? finalLocationId = activeLocationId ?? storedLocationId;
+            int finalGuests = guests ?? storedGuests ?? 1;
+
+            DateTime? finalStart = startDate;
+            if (!finalStart.HasValue && !string.IsNullOrEmpty(storedStart))
+                finalStart = DateTime.Parse(storedStart, CultureInfo.InvariantCulture);
+
+            DateTime? finalEnd = endDate;
+            if (!finalEnd.HasValue && !string.IsNullOrEmpty(storedEnd))
+                finalEnd = DateTime.Parse(storedEnd, CultureInfo.InvariantCulture);
+
+            // 3. write back to session (only primitives/strings)
+            if (finalLocationId.HasValue)
+                HttpContext.Session.SetInt32(SessLocation, finalLocationId.Value);
+            else
+                HttpContext.Session.Remove(SessLocation);
+
+            HttpContext.Session.SetInt32(SessGuests, finalGuests);
+
+            if (finalStart.HasValue)
+                HttpContext.Session.SetString(SessStart, finalStart.Value.ToString("yyyy-MM-dd"));
+            else
+                HttpContext.Session.Remove(SessStart);
+
+            if (finalEnd.HasValue)
+                HttpContext.Session.SetString(SessEnd, finalEnd.Value.ToString("yyyy-MM-dd"));
+            else
+                HttpContext.Session.Remove(SessEnd);
+
+            // 4. load dropdown data
+            var locations = _context.Locations
+                                    .OrderBy(l => l.Name)
+                                    .ToList();
+
+            // 5. base query
+            var residencesQuery = _context.Residences
+                                          .Include(r => r.Location)
+                                          .AsQueryable();
+
+            // filter by location
+            if (finalLocationId.HasValue)
+                residencesQuery = residencesQuery.Where(r => r.LocationId == finalLocationId.Value);
+
+            // filter by guests
+            if (finalGuests > 1)
+                residencesQuery = residencesQuery.Where(r => r.GuestNumber >= finalGuests);
+
+            // (date filter is assignment-dependent; we just retain it in session)
+
+            var residences = residencesQuery.ToList();
+
+            // 6. build viewmodel
+            var vm = new HomeFilterViewModel
+            {
+                ActiveLocationId = finalLocationId,
+                Guests = finalGuests,
+                StartDate = finalStart,
+                EndDate = finalEnd,
+                Locations = locations,
+                Residences = residences
+            };
+
+            return View(vm);
         }
 
-        public IActionResult CancellationPolicy()
+        // POST: /Home/SaveReservation
+        [HttpPost]
+        public IActionResult SaveReservation(int id)
         {
-            return Content("Home controller, CancellationPolicy action");
+            // keep it simple: write to cookie for 7 days
+            var cookies = new AirBBCookies(Request.Cookies, Response.Cookies);
+            var currentIds = cookies.GetReservationIds().ToList();
+            if (!currentIds.Contains(id))
+                currentIds.Add(id);
+            cookies.WriteReservationIds(currentIds);
+
+            TempData["Message"] = "Residence reserved.";
+            return RedirectToAction("Index");
         }
 
-        public IActionResult Terms()
+        // GET: /Home/Details/101
+        [HttpGet]
+        public IActionResult Details(int id)
         {
-            return Content("Home controller, Terms action");
-        }
+            var residence = _context.Residences
+                                   .Include(r => r.Location)
+                                   .FirstOrDefault(r => r.ResidenceId == id);
 
-        public IActionResult CookiePolicy()
-        {
-            return Content("Home controller, CookiePolicy action");
+            if (residence == null)
+                return NotFound();
+
+            return View(residence);
         }
     }
 }

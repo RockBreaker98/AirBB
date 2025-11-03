@@ -1,0 +1,27 @@
+@model Residence
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="card shadow-sm">
+    <img src="~/images/@Model.ResidencePicture" class="card-img-top" style="height:250px;object-fit:cover;" alt="@Model.Name" />
+    <div class="card-body">
+        <h3>@Model.Name</h3>
+        <p>@Model.Location?.Name • Sleeps @Model.GuestNumber • @Model.BedroomNumber br / @Model.BathroomNumber bath</p>
+        <p class="fw-bold">$@Model.PricePerNight / night</p>
+
+        <form asp-action="Reserve" asp-controller="Reservation" method="post">
+            <input type="hidden" name="residenceId" value="@Model.ResidenceId" />
+            <div class="mb-2">
+                <label>Check-in</label>
+                <input type="date" name="startDate" class="form-control" required />
+            </div>
+            <div class="mb-2">
+                <label>Check-out</label>
+                <input type="date" name="endDate" class="form-control" required />
+            </div>
+            <button type="submit" class="btn btn-success">Reserve</button>
+            <a asp-action="Index" class="btn btn-secondary">Back to Home</a>
+        </form>
+    </div>
+</div>

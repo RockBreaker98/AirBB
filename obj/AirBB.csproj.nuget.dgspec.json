@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\new\\AirBB\\AirBB.csproj": {}
+    "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\Week 11\\AirBB\\AirBB.csproj": {}
   },
   "projects": {
-    "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\new\\AirBB\\AirBB.csproj": {
+    "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\Week 11\\AirBB\\AirBB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\new\\AirBB\\AirBB.csproj",
+        "projectUniqueName": "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\Week 11\\AirBB\\AirBB.csproj",
         "projectName": "AirBB",
-        "projectPath": "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\new\\AirBB\\AirBB.csproj",
+        "projectPath": "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\Week 11\\AirBB\\AirBB.csproj",
         "packagesPath": "C:\\Users\\haris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\new\\AirBB\\obj\\",
+        "outputPath": "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\Week 11\\AirBB\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\haris\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -63,6 +63,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.4, )"
             }
           },
           "imports": [
@@ -84,7 +88,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

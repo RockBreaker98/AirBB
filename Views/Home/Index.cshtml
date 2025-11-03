@@ -1,50 +1,86 @@
+@model AirBB.Models.HomeFilterViewModel
+
 @{
-    Layout = "~/Views/Shared/_MainLayout.cshtml";
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Find your stay";
 }
 
-<!-- Hero Section -->
-<section class="home-hero d-flex align-items-center justify-content-center text-center">
-    <div class="hero-content text-light">
-        <h1 class="display-3 fw-bold">Welcome to AirBB</h1>
-        <p class="lead fs-4">Find your perfect stay, experience, and service.</p>
+<div class="row g-3">
+    <!-- LEFT FILTER PANEL -->
+    <div class="col-md-3">
+        <h4 class="mb-3">Filter</h4>
+        <form asp-action="Index" method="get">
+            <!-- WHERE -->
+            <div class="mb-3">
+                <label class="form-label">Where</label>
+                <select asp-for="ActiveLocationId" name="activeLocationId" class="form-select">
+                    <option value="">All</option>
+                    @foreach (var loc in Model.Locations)
+                    {
+                        var selected = Model.ActiveLocationId.HasValue && Model.ActiveLocationId.Value == loc.LocationId;
+                        <option value="@loc.LocationId" selected="@(selected ? "selected" : null)">@loc.Name</option>
+                    }
+                </select>
+            </div>
+
+            <!-- WHEN -->
+            <div class="mb-3">
+                <label class="form-label">When (start)</label>
+                <input asp-for="StartDate" name="startDate" type="date" class="form-control" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">When (end)</label>
+                <input asp-for="EndDate" name="endDate" type="date" class="form-control" />
+            </div>
+
+            <!-- WHO -->
+            <div class="mb-3">
+                <label class="form-label">Who</label>
+                <input asp-for="Guests" name="guests" type="number" min="1" class="form-control" />
+            </div>
+
+            <button class="btn btn-primary w-100" type="submit">Filter</button>
+        </form>
+
+      
+
+        @if (TempData["Message"] != null)
+        {
+            <div class="alert alert-success mt-3">@TempData["Message"]</div>
+        }
     </div>
-</section>
 
-<!-- List Section -->
-<section class="container my-5">
-    <h2 class="text-center mb-4 fw-bold text-white">Available Residences</h2>
+    <!-- RIGHT LIST PANEL -->
+    <div class="col-md-9">
+        <div class="row row-cols-1 row-cols-md-2 g-3">
+            @if (Model.Residences == null || !Model.Residences.Any())
+            {
+                <p>No residences found.</p>
+            }
+            else
+            {
+                @foreach (var r in Model.Residences)
+                {
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="~/images/@r.ResidencePicture"
+                                 alt="@r.Name"
+                                 class="card-img-top"
+                                 style="height:150px; object-fit:cover;" />
+                            <div class="card-body">
+                                <h5 class="card-title">@r.Name</h5>
+                                <p class="card-text">
+                                    @r.Location?.Name • Sleeps @r.GuestNumber • @r.BedroomNumber br / @r.BathroomNumber bath
+                                </p>
+                                <p class="card-text fw-bold">$@r.PricePerNight / night</p>
 
-    <div class="row g-4 justify-content-center">
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <h5 class="card-title">Cozy Apartment in Downtown</h5>
-                    <p class="card-text">A modern and comfortable apartment perfect for short stays.</p>
-                    <a href="@Url.Action("List", "Residence")" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
+                                <a asp-action="Details" asp-route-id="@r.ResidenceId" class="btn btn-outline-primary btn-sm">Details</a>
 
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <h5 class="card-title">Luxury Villa with Pool</h5>
-                    <p class="card-text">Spacious villa with private pool, ideal for family vacations.</p>
-                    <a href="@Url.Action("List", "Residence")" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <h5 class="card-title">Mountain Cabin Escape</h5>
-                    <p class="card-text">Peaceful cabin surrounded by nature for a relaxing getaway.</p>
-                    <a href="@Url.Action("List", "Residence")" class="btn btn-primary">View Details</a>
-                </div>
-            </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
         </div>
     </div>
-</section>
-
+</div>

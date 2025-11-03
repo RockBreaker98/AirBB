@@ -1,32 +1,65 @@
-using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore;
 
-namespace AirBB.Models
-{
-    public class AirBBContext : DbContext
+    namespace AirBB.Models
     {
-        public AirBBContext(DbContextOptions<AirBBContext> options) : base(options) { }
-
-        public DbSet<Category> Categories => Set<Category>();
-        public DbSet<Experience> Experiences => Set<Experience>();
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public class AirBBContext : DbContext
         {
-            // Categories (left filter)
-            modelBuilder.Entity<Category>().HasData(
-                new Category { CategoryId = 1, Name = "Beach" },
-                new Category { CategoryId = 2, Name = "City" },
-                new Category { CategoryId = 3, Name = "Mountains" }
-            );
+            public AirBBContext(DbContextOptions<AirBBContext> options)
+                : base(options)
+            {
+            }
 
-            // Experiences (table on the right)
-            modelBuilder.Entity<Experience>().HasData(
-                new Experience { ExperienceId = 1,  CategoryId = 1, Title = "Oceanfront Bungalow", Description = "Private deck, sunset views.", Price = 199.00m, DiscountPercent = 10 },
-                new Experience { ExperienceId = 2,  CategoryId = 1, Title = "Surf Lessons Package",   Description = "Beginner to intermediate.", Price = 129.00m, DiscountPercent = 0  },
-                new Experience { ExperienceId = 3,  CategoryId = 2, Title = "Downtown Loft Stay",     Description = "Walk to museums & food.", Price = 149.00m, DiscountPercent = 15 },
-                new Experience { ExperienceId = 4,  CategoryId = 2, Title = "Food Tour",              Description = "Street food & cafes.",   Price = 89.00m,  DiscountPercent = 5  },
-                new Experience { ExperienceId = 5,  CategoryId = 3, Title = "Cabin Retreat",          Description = "Fireplace & hiking.",    Price = 179.00m, DiscountPercent = 0  },
-                new Experience { ExperienceId = 6,  CategoryId = 3, Title = "Guided Trail Hike",      Description = "Half-day with guide.",   Price = 59.00m,  DiscountPercent = 0  }
-            );
+            public DbSet<Location> Locations { get; set; }
+            public DbSet<Residence> Residences { get; set; }
+            public DbSet<Reservation> Reservations { get; set; }
+            public DbSet<Client> Clients { get; set; }
+
+            protected override void OnModelCreating(ModelBuilder modelBuilder)
+            {
+                // --- Seed Locations ---
+                modelBuilder.Entity<Location>().HasData(
+                    new Location { LocationId = 1, Name = "Boston" },
+                    new Location { LocationId = 2, Name = "Chicago" },
+                    new Location { LocationId = 3, Name = "New York" }
+                );
+
+                // --- Seed Residences ---
+                modelBuilder.Entity<Residence>().HasData(
+                    new Residence
+                    {
+                        ResidenceId = 101,
+                        Name = "Boston Back Bay Condo",
+                        ResidencePicture = "boston.jpg",
+                        LocationId = 1,
+                        GuestNumber = 4,
+                        BedroomNumber = 2,
+                        BathroomNumber = 1,
+                        PricePerNight = 179
+                    },
+                    new Residence
+                    {
+                        ResidenceId = 102,
+                        Name = "Chicago Loop Apartment",
+                        ResidencePicture = "chicago.jpg",
+                        LocationId = 2,
+                        GuestNumber = 3,
+                        BedroomNumber = 1,
+                        BathroomNumber = 1,
+                        PricePerNight = 129
+                    },
+                    new Residence
+                    {
+                        ResidenceId = 103,
+                        Name = "NYC Midtown Studio",
+                        ResidencePicture = "nyc.jpg",
+                        LocationId = 3,
+                        GuestNumber = 2,
+                        BedroomNumber = 1,
+                        BathroomNumber = 1,
+                        PricePerNight = 149
+                    }
+                );
+            }
         }
     }
-}
+
