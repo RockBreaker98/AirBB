@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AirBB.Models
@@ -6,12 +5,27 @@ namespace AirBB.Models
     public class Location
     {
         [Key]
-        public int LocationId { get; set; }   // Primary Key
+        public int LocationId { get; set; }
 
-        [Required]
-        public string Name { get; set; } = string.Empty;
+        [Required, StringLength(50)]
+        public string City { get; set; } = "";
 
-        // Navigation property: a location can have many residences
-        public List<Residence>? Residences { get; set; }
+        [StringLength(50)]
+        public string? State { get; set; }
+
+        [StringLength(50)]
+        public string? Country { get; set; }
+
+        // Optional helper property for dropdown display
+        public string DisplayName => $"{City}, {State}";
+
+        // Legacy alias for old code references (do not remove old public pages)
+        public string? Name
+        {
+            get => City;
+            set => City = value ?? string.Empty;
+        }
+
     }
 }
+

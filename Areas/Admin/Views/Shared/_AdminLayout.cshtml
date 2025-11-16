@@ -17,8 +17,6 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 
-<body class="container-fluid">
-
 <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
         <div class="container-fluid">
@@ -32,11 +30,11 @@
 
             <nav class="collapse navbar-collapse" id="navbarNav">
                 <div class="navbar-nav me-auto">
-                    <a class="nav-item nav-link @(controller == "Home" && action == "Index" ? "active" : "")"
-                       asp-controller="Home" asp-action="Index">Home</a>
 
-                    <a class="nav-item nav-link @(controller == "Reservation" ? "active" : "")"
-                       asp-controller="Reservation" asp-action="Index">Reservations</a>
+                    <a class="nav-link text-light" asp-area="Admin" asp-controller="Locations" asp-action="Index">Locations</a>
+                    <a class="nav-link text-light" asp-area="Admin" asp-controller="Residences" asp-action="Index">Residences</a>
+                    <a class="nav-link text-light" asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a>
+
                 </div>
 
                      <div class="navbar-nav navbar-right">
@@ -48,16 +46,10 @@
     </nav>
 </header>
 
-<main style="margin-top:80px;">
+<div class="container mt-4">
     @RenderBody()
-</main>
+</div>
 
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-@section scripts {
-    @RenderSection("scripts", required: false)
+@section Scripts {
+    @RenderSection("Scripts", required: false)
 }
-
-</body>
-</html>

@@ -3,16 +3,15 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1️⃣ Add services to the container.
+// 1️⃣ Register MVC + Razor Views
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
 
-
-// EF Core context (update this connection name if you renamed it)
+// 2️⃣ Register EF Core
 builder.Services.AddDbContext<AirBBContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("AirBBContext")));
 
-// Enable session support
+// 3️⃣ Register Session
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -21,10 +20,9 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
-// Build app
 var app = builder.Build();
 
-// 2️⃣ Configure HTTP pipeline
+// 4️⃣ Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -40,10 +38,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+// Session MUST go before Authorization
 app.UseSession();
 
-// 3️⃣ Routes — Admin first, then default
+app.UseAuthorization();
+
+// 5️⃣ Routing (Admin first, then default)
 app.MapControllerRoute(
     name: "areas",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
@@ -52,5 +52,4 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-// 4️⃣ Run the app
 app.Run();

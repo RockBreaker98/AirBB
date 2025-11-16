@@ -1,0 +1,90 @@
+@model IEnumerable<AirBB.Models.Residence>
+@{
+    ViewData["Title"] = "Manage Residences";
+}
+
+<div class="container py-4">
+    <h2 class="fw-bold text-dark mb-4">Manage Residences</h2>
+
+    <div class="mb-3">
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Add New Residence
+        </a>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success text-center">
+            <i class="fa-solid fa-circle-check"></i> @TempData["SuccessMessage"]
+        </div>
+    }
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center shadow-sm">
+            <i class="fa-solid fa-info-circle"></i> No residences found.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped align-middle table-hover shadow-sm">
+                <thead class="table-dark text-center">
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Owner ID</th>
+                        <th>Guests</th>
+                        <th>Bedrooms</th>
+                        <th>Bathrooms</th>
+                        <th>Price / Night</th>
+                        <th>Built Year</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var r in Model)
+                {
+                    <tr>
+                        <td class="text-center">
+                            @if (!string.IsNullOrEmpty(r.Image))
+                            {
+                                <img src="~/images/@r.Image" alt="@r.Name" width="90" height="60"
+                                     class="rounded shadow-sm" style="object-fit: cover;" />
+                            }
+                            else
+                            {
+                                <span class="text-muted">No image</span>
+                            }
+                        </td>
+                        <td>@r.Name</td>
+                        <td>@r.Location?.Name</td>
+                        <td>@r.OwnerId</td>
+                        <td class="text-center">@r.Accommodation</td>
+                        <td class="text-center">@r.Bedrooms</td>
+                        <td class="text-center">@r.Bathrooms</td>
+                        <td class="text-center">$@r.Price</td>
+                        <td class="text-center">@r.BuiltYear</td>
+                        <td class="text-center">
+                            <a asp-action="Edit" asp-route-id="@r.ResidenceId"
+                               class="btn btn-sm btn-success me-1">
+                                <i class="fa-solid fa-pen-to-square"></i> Edit
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@r.ResidenceId"
+                               class="btn btn-sm btn-danger"
+                               onclick="return confirm('Are you sure you want to delete this residence?');">
+                                <i class="fa-solid fa-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

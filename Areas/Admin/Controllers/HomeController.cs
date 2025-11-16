@@ -5,11 +5,8 @@ namespace AirBB.Areas.Admin.Controllers
     [Area("Admin")]
     public class HomeController : Controller
     {
-        public IActionResult Index()
-        {
-            ViewData["Title"] = "Admin Dashboard";
-            return View();
-        }
+        public IActionResult Index() => View();
     }
 }
+
 

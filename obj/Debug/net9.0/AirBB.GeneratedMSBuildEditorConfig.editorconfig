@@ -17,93 +17,153 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = AirBB
 build_property.RootNamespace = AirBB
-build_property.ProjectDir = C:\Users\haris\Downloads\Firasath Documnets\Fall 2025\Jun Zou\Week 11\AirBB\
+build_property.ProjectDir = C:\Users\haris\Downloads\Firasath Documnets\Fall 2025\Jun Zou\11-15-25\AirBB\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\haris\Downloads\Firasath Documnets\Fall 2025\Jun Zou\Week 11\AirBB
+build_property.MSBuildProjectDirectory = C:\Users\haris\Downloads\Firasath Documnets\Fall 2025\Jun Zou\11-15-25\AirBB
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 9.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Areas/Admin/Views/Home/Index.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Areas/Admin/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Areas/Admin/Views/Shared/_AdminLayout.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Areas/Admin/Views/Locations/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTG9jYXRpb25zXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Areas/Admin/Views/Locations/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTG9jYXRpb25zXERlbGV0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Areas/Admin/Views/Locations/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTG9jYXRpb25zXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Areas/Admin/Views/Locations/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcTG9jYXRpb25zXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Areas/Admin/Views/Residences/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUmVzaWRlbmNlc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Areas/Admin/Views/Residences/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUmVzaWRlbmNlc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Areas/Admin/Views/Residences/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUmVzaWRlbmNlc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Areas/Admin/Views/Residences/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUmVzaWRlbmNlc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Areas/Admin/Views/Shared/_AdminLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Areas/Admin/Views/_ViewImports.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Areas/Admin/Views/Users/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlcnNcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Areas/Admin/Views/Users/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlcnNcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Areas/Admin/Views/Users/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlcnNcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Areas/Admin/Views/Users/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcVXNlcnNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Areas/Admin/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Areas/Admin/Views/_ViewStart.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Areas/Admin/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Views/Experience/Details.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Experience/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZXJpZW5jZVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Views/Experience/List.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Experience/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXhwZXJpZW5jZVxMaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Views/Home/CancellationPolicy.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Home/CancellationPolicy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDYW5jZWxsYXRpb25Qb2xpY3kuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Views/Home/CookiePolicy.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Home/CookiePolicy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDb29raWVQb2xpY3kuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Views/Home/Details.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Home/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Views/Home/Index.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Views/Home/Privacy.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Views/Home/Support.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Home/Support.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTdXBwb3J0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Views/Home/Terms.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Home/Terms.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUZXJtcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Views/Reservation/Index.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Reservation/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzZXJ2YXRpb25cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Views/Shared/Error.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Residence/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzaWRlbmNlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Residence/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzaWRlbmNlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Residence/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzaWRlbmNlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Views/Shared/_MainLayout.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Shared/_MainLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9NYWluTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Views/_ViewImports.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Views/_ViewStart.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/Week 11/AirBB/Views/Shared/_Layout.cshtml]
+[C:/Users/haris/Downloads/Firasath Documnets/Fall 2025/Jun Zou/11-15-25/AirBB/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-dulzoq24n8

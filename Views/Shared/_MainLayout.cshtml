@@ -38,7 +38,7 @@
                     <li class="nav-item me-3">
                         <a class="nav-link @(controller=="Reservation" ? "active" : "")"
                            asp-controller="Reservation" asp-action="Index" title="My Reservations">
-                            <i class="fa-solid fa-bookmark"></i>
+                            Reservation
                             <span class="badge bg-warning text-dark" id="resBadge">@ViewBag.ResCount</span>
                         </a>
                     </li>
@@ -58,8 +58,8 @@
 </main>
 
 
-<footer class="bg-dark text-light text-center py-3 mt-5">
-    <div class="container">
+<footer class="mt-auto bg-dark text-white">
+    <div class="container py-3 text-center small">
         <a asp-controller="Home" asp-action="Support"           class="text-light text-decoration-none me-2">Support</a> |
         <a asp-controller="Home" asp-action="CancellationPolicy" class="text-light text-decoration-none mx-2">Cancellation Policy</a> |
         <a asp-controller="Home" asp-action="Terms"              class="text-light text-decoration-none mx-2">Terms &amp; Conditions</a> |

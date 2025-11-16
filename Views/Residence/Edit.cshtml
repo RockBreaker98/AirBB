@@ -1,0 +1,83 @@
+@model AirBB.Areas.Admin.Models.AdminResidenceViewModel
+@{
+    ViewData["Title"] = "Edit Residence";
+}
+
+<div class="container py-4">
+    <h2 class="fw-bold text-dark mb-4">Edit Residence</h2>
+
+    <form asp-action="Edit" method="post" class="bg-white p-4 rounded shadow-sm">
+        <input type="hidden" asp-for="ResidenceId" />
+
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="Accommodation" class="form-label"></label>
+                <input asp-for="Accommodation" class="form-control" />
+                <span asp-validation-for="Accommodation" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="Bedrooms" class="form-label"></label>
+                <input asp-for="Bedrooms" class="form-control" />
+                <span asp-validation-for="Bedrooms" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="Bathrooms" class="form-label"></label>
+
+                @* UPDATED: Bathrooms integer only *@
+                <input asp-for="Bathrooms" class="form-control" type="number" step="1" min="1" />
+
+                <span asp-validation-for="Bathrooms" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="BuiltYear" class="form-label"></label>
+                <input asp-for="BuiltYear" class="form-control" />
+                <span asp-validation-for="BuiltYear" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="Price" class="form-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="Image" class="form-label"></label>
+                <input asp-for="Image" class="form-control" />
+                <span asp-validation-for="Image" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="LocationId" class="form-label"></label>
+                <select asp-for="LocationId" class="form-select"
+                        asp-items="@(new SelectList(ViewBag.Locations, "LocationId", "Name"))"></select>
+                <span asp-validation-for="LocationId" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="OwnerId" class="form-label"></label>
+                <input asp-for="OwnerId" class="form-control" />
+                <span asp-validation-for="OwnerId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success me-2">
+                <i class="fa-solid fa-save"></i> Save Changes
+            </button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

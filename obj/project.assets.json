@@ -3161,11 +3161,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\Week 11\\AirBB\\AirBB.csproj",
+      "projectUniqueName": "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\11-15-25\\AirBB\\AirBB.csproj",
       "projectName": "AirBB",
-      "projectPath": "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\Week 11\\AirBB\\AirBB.csproj",
+      "projectPath": "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\11-15-25\\AirBB\\AirBB.csproj",
       "packagesPath": "C:\\Users\\haris\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\Week 11\\AirBB\\obj\\",
+      "outputPath": "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\11-15-25\\AirBB\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\haris\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -3242,7 +3242,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.307/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

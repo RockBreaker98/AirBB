@@ -1,0 +1,35 @@
+@model IEnumerable<Residence>
+
+<h3>Manage Residences</h3>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Add New Residence</a>
+</p>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Location</th>
+            <th>Price</th>
+            <th>Bedrooms</th>
+            <th>Bathrooms</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.Name</td>
+                <td>@r.Location?.City</td>
+                <td>@r.Price</td>
+                <td>@r.Bedrooms</td>
+                <td>@r.Bathrooms</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@r.ResidenceId" class="btn btn-sm btn-warning">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@r.ResidenceId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

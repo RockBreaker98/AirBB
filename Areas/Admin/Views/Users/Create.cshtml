@@ -1,0 +1,59 @@
+@model Client
+@{
+    ViewData["Title"] = "Add User";
+}
+
+<div class="container py-4">
+    <h2 class="fw-bold text-dark mb-4">Add New User</h2>
+
+    <form asp-area="Admin" asp-controller="Users" asp-action="Create" method="post"
+          class="bg-white p-4 rounded shadow-sm border">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <!-- Name -->
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label fw-semibold"></label>
+            <input asp-for="Name" class="form-control" placeholder="Enter full name" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <!-- SSN -->
+        <div class="mb-3">
+            <label asp-for="SSN" class="form-label fw-semibold"></label>
+            <input asp-for="SSN" class="form-control" placeholder="000-00-0000" />
+            <span asp-validation-for="SSN" class="text-danger"></span>
+        </div>
+
+        <!-- Phone -->
+        <div class="mb-3">
+            <label asp-for="PhoneNumber" class="form-label fw-semibold"></label>
+            <input asp-for="PhoneNumber" type="tel" class="form-control" placeholder="Enter phone number" />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label fw-semibold"></label>
+            <input asp-for="Email" type="email" class="form-control" placeholder="Enter email" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <!-- User Type -->
+        <div class="mb-3">
+            <label asp-for="UserType" class="form-label fw-semibold"></label>
+            <select asp-for="UserType" class="form-select" asp-items="Html.GetEnumSelectList<UserType>()">
+                <option value="">-- Select User Type --</option>
+            </select>
+            <span asp-validation-for="UserType" class="text-danger"></span>
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-success px-4 me-2">Save</button>
+            <a asp-area="Admin" asp-controller="Users" asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

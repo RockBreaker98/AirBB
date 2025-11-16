@@ -1,9 +1,8 @@
 
 body {
-    background: url('/images/background.jpg') no-repeat center center fixed;
+    background: url('/images/LightPhoto.jpg') no-repeat center center fixed;
     background-size: cover;
 }
-
 .overlay {
     background-color: rgba(0, 0, 0, 0.45);
     padding: 60px;

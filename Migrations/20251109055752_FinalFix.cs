@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace AirBB.Migrations
 {
     /// <inheritdoc />
-    public partial class AirBB : Migration
+    public partial class FinalFix : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -22,7 +22,8 @@ namespace AirBB.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),
                     Email = table.Column<string>(type: "TEXT", nullable: false),
-                    DOB = table.Column<DateTime>(type: "TEXT", nullable: false)
+                    DOB = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UserType = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -35,7 +36,10 @@ namespace AirBB.Migrations
                 {
                     LocationId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false)
+                    City = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    State = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    Country = table.Column<string>(type: "TEXT", maxLength: 50, nullable: true),
+                    Name = table.Column<string>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -48,17 +52,30 @@ namespace AirBB.Migrations
                 {
                     ResidenceId = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", nullable: false),
-                    ResidencePicture = table.Column<string>(type: "TEXT", nullable: false),
                     LocationId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
+                    OwnerId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Accommodation = table.Column<int>(type: "INTEGER", nullable: false),
+                    Bedrooms = table.Column<int>(type: "INTEGER", nullable: false),
+                    Bathrooms = table.Column<decimal>(type: "decimal(4,1)", nullable: false),
+                    BuiltYear = table.Column<int>(type: "INTEGER", nullable: false),
+                    Image = table.Column<string>(type: "TEXT", nullable: true),
+                    Price = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    ResidencePicture = table.Column<string>(type: "TEXT", nullable: true),
                     GuestNumber = table.Column<int>(type: "INTEGER", nullable: false),
                     BedroomNumber = table.Column<int>(type: "INTEGER", nullable: false),
-                    BathroomNumber = table.Column<int>(type: "INTEGER", nullable: false),
+                    BathroomNumber = table.Column<decimal>(type: "TEXT", nullable: false),
                     PricePerNight = table.Column<decimal>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Residences", x => x.ResidenceId);
+                    table.ForeignKey(
+                        name: "FK_Residences_Clients_OwnerId",
+                        column: x => x.OwnerId,
+                        principalTable: "Clients",
+                        principalColumn: "ClientId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Residences_Locations_LocationId",
                         column: x => x.LocationId,
@@ -89,23 +106,28 @@ namespace AirBB.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Clients",
+                columns: new[] { "ClientId", "DOB", "Email", "Name", "PhoneNumber", "UserType" },
+                values: new object[] { 1, new DateTime(1980, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "owner@example.com", "John Owner", "111-111-1111", 1 });
+
+            migrationBuilder.InsertData(
                 table: "Locations",
-                columns: new[] { "LocationId", "Name" },
+                columns: new[] { "LocationId", "City", "Country", "Name", "State" },
                 values: new object[,]
                 {
-                    { 1, "Boston" },
-                    { 2, "Chicago" },
-                    { 3, "New York" }
+                    { 1, "Boston", null, "Boston", null },
+                    { 2, "Chicago", null, "Chicago", null },
+                    { 3, "New York", null, "New York", null }
                 });
 
             migrationBuilder.InsertData(
                 table: "Residences",
-                columns: new[] { "ResidenceId", "BathroomNumber", "BedroomNumber", "GuestNumber", "LocationId", "Name", "PricePerNight", "ResidencePicture" },
+                columns: new[] { "ResidenceId", "Accommodation", "BathroomNumber", "Bathrooms", "BedroomNumber", "Bedrooms", "BuiltYear", "GuestNumber", "Image", "LocationId", "Name", "OwnerId", "Price", "PricePerNight", "ResidencePicture" },
                 values: new object[,]
                 {
-                    { 101, 1, 2, 4, 1, "Boston Back Bay Condo", 179m, "boston.jpg" },
-                    { 102, 1, 1, 3, 2, "Chicago Loop Apartment", 129m, "chicago.jpg" },
-                    { 103, 1, 1, 2, 3, "NYC Midtown Studio", 149m, "nyc.jpg" }
+                    { 101, 4, 1m, 1m, 2, 2, 0, 4, "boston.jpg", 1, "Boston Back Bay Condo", 1, 179m, 179m, "boston.jpg" },
+                    { 102, 3, 1m, 1m, 1, 1, 0, 3, "chicago.jpg", 2, "Chicago Loop Apartment", 1, 129m, 129m, "chicago.jpg" },
+                    { 103, 2, 1m, 1m, 1, 1, 0, 2, "nyc.jpg", 3, "NYC Midtown Studio", 1, 149m, 149m, "nyc.jpg" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -117,19 +139,24 @@ namespace AirBB.Migrations
                 name: "IX_Residences_LocationId",
                 table: "Residences",
                 column: "LocationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Residences_OwnerId",
+                table: "Residences",
+                column: "OwnerId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Clients");
-
-            migrationBuilder.DropTable(
                 name: "Reservations");
 
             migrationBuilder.DropTable(
                 name: "Residences");
+
+            migrationBuilder.DropTable(
+                name: "Clients");
 
             migrationBuilder.DropTable(
                 name: "Locations");
