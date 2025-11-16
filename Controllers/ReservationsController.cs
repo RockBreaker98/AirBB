@@ -7,7 +7,7 @@ namespace AirBB.Controllers
     public class ReservationController : Controller
     {
         private readonly AirBBContext _context;
-
+        
         public ReservationController(AirBBContext context)
         {
             _context = context;
