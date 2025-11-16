@@ -19,5 +19,9 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
-
+    <ItemGroup>
+    <Content Includes=:"AirBB.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content> 
+    </ItemGroup>
 </Project>
