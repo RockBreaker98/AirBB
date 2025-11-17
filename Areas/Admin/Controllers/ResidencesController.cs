@@ -12,10 +12,7 @@ namespace AirBB.Areas.Admin.Controllers
         private readonly AirBBContext _context;
         public ResidencesController(AirBBContext context) => _context = context;
 
-        // ----------------------------
-        // HELPERS
-        // ----------------------------
-
+        // helper to populate location dropdown (City shown like LocationsController uses)
         private void PopulateLocations()
         {
             ViewBag.Locations = new SelectList(
@@ -25,10 +22,33 @@ namespace AirBB.Areas.Admin.Controllers
             );
         }
 
-        private Residence MapToEntity(AdminResidenceViewModel vm) =>
-            new Residence
+        // GET: /Admin/Residences
+        public async Task<IActionResult> Index() =>
+            View(await _context.Residences
+                               .Include(r => r.Location)
+                               .OrderBy(r => r.Name)
+                               .ToListAsync());
+
+        // GET: /Admin/Residences/Create
+        public IActionResult Create()
+        {
+            PopulateLocations();
+            return View(new AdminResidenceViewModel());
+        }
+
+        // POST: /Admin/Residences/Create
+        [HttpPost]
+        public async Task<IActionResult> Create(AdminResidenceViewModel vm)
+        {
+            if (!ModelState.IsValid)
             {
-                ResidenceId   = vm.ResidenceId,
+                ModelState.AddModelError("", "Please fix the error.");
+                PopulateLocations();
+                return View(vm);
+            }
+
+            var res = new Residence
+            {
                 Name          = vm.Name,
                 LocationId    = vm.LocationId,
                 OwnerId       = vm.OwnerId,
@@ -40,131 +60,75 @@ namespace AirBB.Areas.Admin.Controllers
                 Price         = vm.Price
             };
 
-        private AdminResidenceViewModel MapToViewModel(Residence r) =>
-            new AdminResidenceViewModel
-            {
-                ResidenceId   = r.ResidenceId,
-                Name          = r.Name,
-                LocationId    = r.LocationId,
-                OwnerId       = r.OwnerId,
-                Accommodation = r.Accommodation,
-                Bedrooms      = r.Bedrooms,
-                Bathrooms     = r.Bathrooms,
-                BuiltYear     = r.BuiltYear,
-                Image         = r.Image,
-                Price         = r.Price
-            };
-
-        // ----------------------------
-        // LIST
-        // ----------------------------
-
-        public async Task<IActionResult> Index() =>
-            View(await _context.Residences
-                .Include(r => r.Location)
-                .OrderBy(r => r.Name)
-                .ToListAsync());
-
-        // ----------------------------
-        // CREATE - PAGE 1 (FORM)
-        // ----------------------------
-
-        public IActionResult Create()
-        {
-            PopulateLocations();
-            return View(new AdminResidenceViewModel());
-        }
-
-        // ----------------------------
-        // CREATE - PAGE 2 (CONFIRMATION)
-        // ----------------------------
-
-        [HttpPost]
-        public IActionResult Review(AdminResidenceViewModel vm)
-        {
-            if (!ModelState.IsValid)
-            {
-                PopulateLocations();
-                return View("Create", vm);
-            }
-
-            return View("Confirm", vm);
-        }
-
-        // ----------------------------
-        // CREATE - PAGE 3 (SAVE)
-        // ----------------------------
-
-        [HttpPost]
-        public async Task<IActionResult> CreateConfirmed(AdminResidenceViewModel vm)
-        {
-            var res = MapToEntity(vm);
-
             _context.Residences.Add(res);
             await _context.SaveChangesAsync();
-
             return RedirectToAction(nameof(Index));
         }
 
-        // ----------------------------
-        // EDIT
-        // ----------------------------
-
+        // GET: /Admin/Residences/Edit/{id}
         public async Task<IActionResult> Edit(int id)
         {
             var res = await _context.Residences.FindAsync(id);
             if (res == null) return NotFound();
 
-            var vm = MapToViewModel(res);
+            var vm = new AdminResidenceViewModel
+            {
+                ResidenceId   = res.ResidenceId,
+                Name          = res.Name,
+                LocationId    = res.LocationId,
+                OwnerId       = res.OwnerId,
+                Accommodation = res.Accommodation,
+                Bedrooms      = res.Bedrooms,
+                Bathrooms     = res.Bathrooms,
+                BuiltYear     = res.BuiltYear,
+                Image         = res.Image,
+                Price         = res.Price
+            };
 
             PopulateLocations();
             return View(vm);
         }
 
+        // POST: /Admin/Residences/Edit
         [HttpPost]
         public async Task<IActionResult> Edit(AdminResidenceViewModel vm)
         {
             if (!ModelState.IsValid)
             {
+                ModelState.AddModelError("", "Please fix the error.");
                 PopulateLocations();
                 return View(vm);
             }
 
-            var entity = await _context.Residences.FindAsync(vm.ResidenceId);
-            if (entity == null) return NotFound();
+            var res = await _context.Residences.FindAsync(vm.ResidenceId);
+            if (res == null) return NotFound();
 
-            // update mapped fields
-            entity.Name          = vm.Name;
-            entity.LocationId    = vm.LocationId;
-            entity.OwnerId       = vm.OwnerId;
-            entity.Accommodation = vm.Accommodation;
-            entity.Bedrooms      = vm.Bedrooms;
-            entity.Bathrooms     = vm.Bathrooms;
-            entity.BuiltYear     = vm.BuiltYear;
-            entity.Image         = vm.Image;
-            entity.Price         = vm.Price;
+            res.Name          = vm.Name;
+            res.LocationId    = vm.LocationId;
+            res.OwnerId       = vm.OwnerId;
+            res.Accommodation = vm.Accommodation;
+            res.Bedrooms      = vm.Bedrooms;
+            res.Bathrooms     = vm.Bathrooms;
+            res.BuiltYear     = vm.BuiltYear;
+            res.Image         = vm.Image;
+            res.Price         = vm.Price;
 
-            _context.Update(entity);
+            _context.Update(res);
             await _context.SaveChangesAsync();
-
             return RedirectToAction(nameof(Index));
         }
 
-        // ----------------------------
-        // DELETE
-        // ----------------------------
-
+        // GET: /Admin/Residences/Delete/{id}
         public async Task<IActionResult> Delete(int id)
         {
             var res = await _context.Residences
-                .Include(r => r.Location)
-                .FirstOrDefaultAsync(r => r.ResidenceId == id);
-
+                                    .Include(r => r.Location)
+                                    .FirstOrDefaultAsync(r => r.ResidenceId == id);
             if (res == null) return NotFound();
-
             return View(res);
         }
 
+        // POST: /Admin/Residences/Delete
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -174,7 +138,6 @@ namespace AirBB.Areas.Admin.Controllers
                 _context.Remove(res);
                 await _context.SaveChangesAsync();
             }
-
             return RedirectToAction(nameof(Index));
         }
     }

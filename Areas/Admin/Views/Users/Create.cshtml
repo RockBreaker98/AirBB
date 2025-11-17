@@ -18,10 +18,10 @@
         </div>
 
         <!-- SSN -->
-        <div class="mb-3">
-            <label asp-for="SSN" class="form-label fw-semibold"></label>
-            <input asp-for="SSN" class="form-control" placeholder="000-00-0000" />
-            <span asp-validation-for="SSN" class="text-danger"></span>
+        <div class="form-group">
+           <label asp-for="SSN" class="control-label"></label>
+           <input asp-for="SSN" class="form-control" id="SSN" />
+        <span asp-validation-for="SSN" class="text-danger"></span>
         </div>
 
         <!-- Phone -->

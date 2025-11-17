@@ -8,7 +8,6 @@ namespace AirBB.Models
 {
     public class Residence
     {
-        [Key]
         public int ResidenceId { get; set; }
 
         [Required(ErrorMessage = "Location is required.")]
@@ -38,7 +37,7 @@ namespace AirBB.Models
         // FIXED: Bathrooms must be integer only
         [Required(ErrorMessage = "Bathrooms are required.")]
         [Range(1, 50, ErrorMessage = "Bathrooms must be a whole number.")]
-        public int Bathrooms { get; set; }
+        public decimal Bathrooms { get; set; }
 
         // past year, not more than 150 years ago
         [Required(ErrorMessage = "Built year is required.")]
@@ -58,7 +57,7 @@ namespace AirBB.Models
         public int BedroomNumber { get => Bedrooms; set => Bedrooms = value; }
 
         // FIXED: BathroomNumber must map to Bathrooms
-        public int BathroomNumber
+        public decimal BathroomNumber
         {
             get => Bathrooms;
             set => Bathrooms = value;

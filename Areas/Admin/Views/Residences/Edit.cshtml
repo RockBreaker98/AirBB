@@ -48,7 +48,7 @@
                 <label asp-for="Bathrooms" class="form-label"></label>
 
                 @* UPDATED: Bathrooms integer only *@
-                <input asp-for="Bathrooms" class="form-control" type="number" step="1" min="1" />
+                <input asp-for="Bathrooms" class="form-control" type="number" step=".5" min="1" />
 
                 <span asp-validation-for="Bathrooms" class="text-danger"></span>
             </div>

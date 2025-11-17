@@ -9,10 +9,12 @@ namespace AirBB.Areas.Admin.Models
         [Required, StringLength(60)]
         public string Name { get; set; } = "";
 
+        // Optional, but if provided must look like a phone
         [Phone(ErrorMessage = "Invalid phone number format.")]
         [MinLength(10, ErrorMessage = "Phone number must be at least 10 digits.")]
         [MaxLength(10, ErrorMessage = "Phone number cannot exceed 10 digits.")]
-        public string PhoneNumber { get; set; } = string.Empty;
+        public string? PhoneNumber { get; set; }
+
 
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid email format.")]
@@ -20,11 +22,11 @@ namespace AirBB.Areas.Admin.Models
         public string Email { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "SSN is required.")]
-        [MinLength(10, ErrorMessage = "SSN must be at least 9 digits.")]
-        [MaxLength(10, ErrorMessage = "SSN cannot exceed 9 digits.")]
+        [MinLength(9, ErrorMessage = "SSN must be at least 9 digits.")]
+        [MaxLength(9, ErrorMessage = "SSN cannot exceed 9 digits.")]
         [Display(Name = "SSN")]
         [StringLength(9)]
-        public string? SSN { get; set; }
+        public string SSN { get; set; } = string.Empty;
 
         [Required]
         public string UserType { get; set; } = string.Empty;

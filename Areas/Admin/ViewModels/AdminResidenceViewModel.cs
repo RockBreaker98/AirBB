@@ -36,7 +36,7 @@ namespace AirBB.Areas.Admin.Models
         [Required(ErrorMessage = "Bathrooms are required.")]
         [Range(0, 30, ErrorMessage = "Bathrooms must be between 0 and 30.")]
         [RegularExpression(@"^\d+(\.5)?$", ErrorMessage = "Bathrooms must be integer or end with .5.")]
-        public int Bathrooms { get; set; }
+        public decimal Bathrooms { get; set; }
 
         [Required(ErrorMessage = "Built year is required.")]
         [Display(Name = "Built Year")]
