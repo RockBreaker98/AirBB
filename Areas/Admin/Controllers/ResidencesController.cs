@@ -1,49 +1,118 @@
 using AirBB.Areas.Admin.Models;
-using AirBB.Models;
+using AirBB.Models.DomainModels;
+using AirBB.Models.DataLayer.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using AirBB.Models.DataLayer;
 
 namespace AirBB.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class ResidencesController : Controller
     {
-        private readonly AirBBContext _context;
-        public ResidencesController(AirBBContext context) => _context = context;
+        private readonly IRepository<Residence> residenceData;
+        private readonly IRepository<Location> locationData;
+        private readonly IRepository<Client> clientData;
 
-        // helper to populate location dropdown (City shown like LocationsController uses)
+        public ResidencesController(
+            IRepository<Residence> resRepo,
+            IRepository<Location> locRepo,
+            IRepository<Client> clientRepo)
+        {
+            residenceData = resRepo;
+            locationData = locRepo;
+            clientData = clientRepo;
+        }
+
+        // ---------------- Helper methods ----------------
+
         private void PopulateLocations()
         {
+            var options = new QueryOptions<Location>
+            {
+                OrderBy = l => l.City
+            };
+
+            var locations = locationData.List(options);
+
             ViewBag.Locations = new SelectList(
-                _context.Locations.OrderBy(l => l.City),
+                locations,
                 nameof(Location.LocationId),
                 nameof(Location.City)
             );
         }
 
+        private void PopulateOwners()
+        {
+            var options = new QueryOptions<Client>
+            {
+                Where = c => c.UserType == UserType.Owner,
+                OrderBy = c => c.Name
+            };
+
+            var owners = clientData.List(options);
+
+            ViewBag.Owners = new SelectList(
+                owners,
+                nameof(Client.ClientId),
+                nameof(Client.Name)
+            );
+        }
+
+        private bool IsValidOwner(int ownerId)
+        {
+            var options = new QueryOptions<Client>
+            {
+                Where = c => c.ClientId == ownerId && c.UserType == UserType.Owner
+            };
+
+            return clientData.List(options).Any();
+        }
+
+        // ---------------- Actions ----------------
+
         // GET: /Admin/Residences
-        public async Task<IActionResult> Index() =>
-            View(await _context.Residences
-                               .Include(r => r.Location)
-                               .OrderBy(r => r.Name)
-                               .ToListAsync());
+        public IActionResult Index()
+        {
+            var options = new QueryOptions<Residence>
+            {
+                OrderBy = r => r.Name
+            };
+            options.Include("Location");
+
+            var residences = residenceData.List(options);
+            return View(residences);
+        }
 
         // GET: /Admin/Residences/Create
         public IActionResult Create()
         {
             PopulateLocations();
+            PopulateOwners();
+
             return View(new AdminResidenceViewModel());
         }
 
         // POST: /Admin/Residences/Create
         [HttpPost]
-        public async Task<IActionResult> Create(AdminResidenceViewModel vm)
+        public IActionResult Create(AdminResidenceViewModel vm)
         {
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Please fix the error.");
                 PopulateLocations();
+                PopulateOwners();
+                return View(vm);
+            }
+
+            // server-side owner validation
+            if (!IsValidOwner(vm.OwnerId))
+            {
+                ModelState.AddModelError(nameof(vm.OwnerId),
+                    "OwnerId must exist and be an Owner.");
+                PopulateLocations();
+                PopulateOwners();
                 return View(vm);
             }
 
@@ -57,18 +126,20 @@ namespace AirBB.Areas.Admin.Controllers
                 Bathrooms     = vm.Bathrooms,
                 BuiltYear     = vm.BuiltYear,
                 Image         = vm.Image,
-                Price         = vm.Price
+                Price         = vm.Price,
+                PricePerNight = vm.Price  // keep client cards happy
             };
 
-            _context.Residences.Add(res);
-            await _context.SaveChangesAsync();
+            residenceData.Insert(res);
+            residenceData.Save();
+
             return RedirectToAction(nameof(Index));
         }
 
         // GET: /Admin/Residences/Edit/{id}
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
-            var res = await _context.Residences.FindAsync(id);
+            var res = residenceData.Get(id);
             if (res == null) return NotFound();
 
             var vm = new AdminResidenceViewModel
@@ -86,21 +157,33 @@ namespace AirBB.Areas.Admin.Controllers
             };
 
             PopulateLocations();
+            PopulateOwners();
+
             return View(vm);
         }
 
         // POST: /Admin/Residences/Edit
         [HttpPost]
-        public async Task<IActionResult> Edit(AdminResidenceViewModel vm)
+        public IActionResult Edit(AdminResidenceViewModel vm)
         {
             if (!ModelState.IsValid)
             {
                 ModelState.AddModelError("", "Please fix the error.");
                 PopulateLocations();
+                PopulateOwners();
                 return View(vm);
             }
 
-            var res = await _context.Residences.FindAsync(vm.ResidenceId);
+            if (!IsValidOwner(vm.OwnerId))
+            {
+                ModelState.AddModelError(nameof(vm.OwnerId),
+                    "OwnerId must exist and be an Owner.");
+                PopulateLocations();
+                PopulateOwners();
+                return View(vm);
+            }
+
+            var res = residenceData.Get(vm.ResidenceId);
             if (res == null) return NotFound();
 
             res.Name          = vm.Name;
@@ -112,32 +195,40 @@ namespace AirBB.Areas.Admin.Controllers
             res.BuiltYear     = vm.BuiltYear;
             res.Image         = vm.Image;
             res.Price         = vm.Price;
+            res.PricePerNight = vm.Price;
 
-            _context.Update(res);
-            await _context.SaveChangesAsync();
+            residenceData.Update(res);
+            residenceData.Save();
+
             return RedirectToAction(nameof(Index));
         }
 
         // GET: /Admin/Residences/Delete/{id}
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
-            var res = await _context.Residences
-                                    .Include(r => r.Location)
-                                    .FirstOrDefaultAsync(r => r.ResidenceId == id);
+            var options = new QueryOptions<Residence>
+            {
+                Where = r => r.ResidenceId == id
+            };
+            options.Include("Location");
+
+            var res = residenceData.Get(options);
             if (res == null) return NotFound();
+
             return View(res);
         }
 
         // POST: /Admin/Residences/Delete
         [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var res = await _context.Residences.FindAsync(id);
+            var res = residenceData.Get(id);
             if (res != null)
             {
-                _context.Remove(res);
-                await _context.SaveChangesAsync();
+                residenceData.Delete(res);
+                residenceData.Save();
             }
+
             return RedirectToAction(nameof(Index));
         }
     }

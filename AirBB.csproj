@@ -18,9 +18,9 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
+<ItemGroup>
   <Content Include ="AirBB.db">
     <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
   </Content>
-  </ItemGroup>
+</ItemGroup>
 </Project>

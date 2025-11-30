@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\11-15-25\\AirBB\\AirBB.csproj": {}
+    "C:\\Users\\haris\\Downloads\\11-29-25\\AirBB\\AirBB.csproj": {}
   },
   "projects": {
-    "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\11-15-25\\AirBB\\AirBB.csproj": {
+    "C:\\Users\\haris\\Downloads\\11-29-25\\AirBB\\AirBB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\11-15-25\\AirBB\\AirBB.csproj",
+        "projectUniqueName": "C:\\Users\\haris\\Downloads\\11-29-25\\AirBB\\AirBB.csproj",
         "projectName": "AirBB",
-        "projectPath": "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\11-15-25\\AirBB\\AirBB.csproj",
+        "projectPath": "C:\\Users\\haris\\Downloads\\11-29-25\\AirBB\\AirBB.csproj",
         "packagesPath": "C:\\Users\\haris\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\haris\\Downloads\\Firasath Documnets\\Fall 2025\\Jun Zou\\11-15-25\\AirBB\\obj\\",
+        "outputPath": "C:\\Users\\haris\\Downloads\\11-29-25\\AirBB\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\haris\\AppData\\Roaming\\NuGet\\NuGet.Config"

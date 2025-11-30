@@ -1,4 +1,4 @@
-@model AirBB.Models.HomeFilterViewModel
+@model HomeFilterViewModel
 
 @{
     ViewData["Title"] = "Find your stay";
@@ -42,12 +42,7 @@
             <button type="submit" name="clear" value="1" class="btn btn-secondary w-100 mt-2">Clear</button>
         </form>
 
-      
-
-        @if (TempData["Message"] != null)
-        {
-            <div class="alert alert-success mt-3">@TempData["Message"]</div>
-        }
+    
     </div>
 
     <!-- RIGHT LIST PANEL -->

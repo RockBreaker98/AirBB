@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AirBB.Models;
+using AirBB.Models.DataLayer;
+using AirBB.Models.DomainModels;
 using AirBB.Areas.Admin.Validations;
 
 namespace AirBB.Areas.Admin.Controllers
@@ -15,27 +17,34 @@ namespace AirBB.Areas.Admin.Controllers
             _context = context;
         }
 
-        // GET: /Admin/Users
+        // -------------------------------------------------------
+        // List all users
+        // -------------------------------------------------------
         public IActionResult Index()
         {
             var users = _context.Clients.ToList();
             return View(users);
         }
 
+        // -------------------------------------------------------
         // GET: /Admin/Users/Create
+        // -------------------------------------------------------
         [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
+        // -------------------------------------------------------
         // POST: /Admin/Users/Create
+        // -------------------------------------------------------
         [HttpPost]
         public IActionResult Create(Client model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+                return View(model);
 
-            // Uniqueness checks
+            // Check uniqueness
             var emailMsg = Check.EmailExists(_context, model.Email);
             var phoneMsg = Check.PhoneExists(_context, model.PhoneNumber);
 
@@ -44,14 +53,17 @@ namespace AirBB.Areas.Admin.Controllers
             if (!string.IsNullOrEmpty(phoneMsg))
                 ModelState.AddModelError(nameof(model.PhoneNumber), phoneMsg);
 
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+                return View(model);
 
             _context.Clients.Add(model);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
+        // -------------------------------------------------------
         // GET: /Admin/Users/Edit/5
+        // -------------------------------------------------------
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -62,12 +74,16 @@ namespace AirBB.Areas.Admin.Controllers
             return View(user);
         }
 
+        // -------------------------------------------------------
         // POST: /Admin/Users/Edit/5
+        // -------------------------------------------------------
         [HttpPost]
         public IActionResult Edit(Client model)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+                return View(model);
 
+            // Uniqueness checks (ignore same user)
             var emailMsg = Check.EmailExists(_context, model.Email, model.ClientId);
             var phoneMsg = Check.PhoneExists(_context, model.PhoneNumber, model.ClientId);
 
@@ -76,14 +92,17 @@ namespace AirBB.Areas.Admin.Controllers
             if (!string.IsNullOrEmpty(phoneMsg))
                 ModelState.AddModelError(nameof(model.PhoneNumber), phoneMsg);
 
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid)
+                return View(model);
 
             _context.Update(model);
             _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
 
+        // -------------------------------------------------------
         // GET: /Admin/Users/Delete/5
+        // -------------------------------------------------------
         [HttpGet]
         public IActionResult Delete(int id)
         {
@@ -94,8 +113,10 @@ namespace AirBB.Areas.Admin.Controllers
             return View(user);
         }
 
+        // -------------------------------------------------------
         // POST: /Admin/Users/Delete/5
-        [HttpPost, ActionName("Delete")] 
+        // -------------------------------------------------------
+        [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
             var user = _context.Clients.Find(id);
@@ -109,15 +130,11 @@ namespace AirBB.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [AcceptVerbs("Get", "Post")]
-        public IActionResult ValidateOwnerId(int? ownerId, int? OwnerId)
-        {
-            var id = ownerId ?? OwnerId;
-
-            if (id == null) return Json(true);
-            var exists = _context.Clients.Any(c => c.ClientId == id.Value);
-
-            return Json(exists);
-        }
+        // -------------------------------------------------------
+        // Removed (per feedback)
+        // -------------------------------------------------------
+        // ❌ NO ValidateOwnerId here
+        // OwnerId remote validation must be in:
+        // Areas/Admin/Controllers/ValidationController.cs
     }
 }

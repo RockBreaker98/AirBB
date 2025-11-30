@@ -1,5 +1,7 @@
 using System.Linq;
 using AirBB.Models;
+using AirBB.Models.DataLayer;
+using AirBB.Models.DomainModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace AirBB.Areas.Admin.Validations

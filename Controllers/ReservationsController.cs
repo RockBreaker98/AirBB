@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using AirBB.Models;
+using AirBB.Models.DataLayer;
+using AirBB.Models.DomainModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace AirBB.Controllers
@@ -56,7 +58,8 @@ namespace AirBB.Controllers
             _context.Reservations.Add(reservation);
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Reservation");
+            TempData["Message"] = $"Reservation confirmed for {residence.Name} from {startDate:d} to {endDate:d}.";
+            return RedirectToAction("Index", "Home");
         }
 
 

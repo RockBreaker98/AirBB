@@ -1,8 +1,8 @@
-// File: Controllers/ResidenceController.cs
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AirBB.Models;
-using System.Linq;
+using AirBB.Models.DataLayer;
+using AirBB.Models.DomainModels;
 
 namespace AirBB.Controllers
 {
@@ -15,88 +15,36 @@ namespace AirBB.Controllers
             _context = context;
         }
 
-        // Remote validation: OwnerId must exist & be of type Owner
-        [AcceptVerbs("GET", "POST")]
-        public IActionResult ValidateOwnerId(int OwnerId)
-        {
-            var user = _context.Clients.FirstOrDefault(c => c.ClientId == OwnerId);
-
-            if (user == null || user.UserType != UserType.Owner)
-            {
-                return Json($"User ID {OwnerId} does not exist or is not an Owner.");
-            }
-
-            return Json(true);
-        }
-
-        // List
+        // -------------------------------------------------------
+        // PUBLIC: List of residences (READ-ONLY)
+        // -------------------------------------------------------
         public IActionResult Index()
         {
             var residences = _context.Residences
                 .Include(r => r.Location)
                 .Include(r => r.Owner)
+                .OrderBy(r => r.Name)
                 .ToList();
 
             return View(residences);
         }
 
-        // GET: Create
-        [HttpGet]
-        public IActionResult Create()
+        // -------------------------------------------------------
+        // PUBLIC: Show details for one residence (optional)
+        // -------------------------------------------------------
+        public IActionResult Details(int id)
         {
-            return View();
+            var residence = _context.Residences
+                .Include(r => r.Location)
+                .Include(r => r.Owner)
+                .FirstOrDefault(r => r.ResidenceId == id);
+
+            if (residence == null)
+                return NotFound();
+
+            return View(residence);
         }
 
-        // POST: Create → Goes to Confirmation Page
-        [HttpPost]
-        public IActionResult Create(Residence residence)
-        {
-            if (!ModelState.IsValid)
-            {
-                TempData["ErrorMessage"] = "Please fix the validation errors before saving.";
-                return View(residence);
-            }
-
-            // Server-side owner safety check (if JS disabled)
-            var owner = _context.Clients
-                .FirstOrDefault(c => c.ClientId == residence.OwnerId && c.UserType == UserType.Owner);
-
-            if (owner == null)
-            {
-                ModelState.AddModelError("OwnerId", "The specified OwnerId does not exist or is not an Owner.");
-                TempData["ErrorMessage"] = "Owner validation failed.";
-                return View(residence);
-            }
-
-            // NEW: Move to confirmation page instead of saving immediately
-            return View("ConfirmCreate", residence);
-        }
-
-        // POST: Confirmation page → Save to DB
-        [HttpPost]
-        public IActionResult ConfirmCreate(Residence residence)
-        {
-            if (!ModelState.IsValid)
-            {
-                TempData["ErrorMessage"] = "Please fix the validation errors before saving.";
-                return View("Create", residence);
-            }
-
-            var owner = _context.Clients
-                .FirstOrDefault(c => c.ClientId == residence.OwnerId && c.UserType == UserType.Owner);
-
-            if (owner == null)
-            {
-                ModelState.AddModelError("OwnerId", "The specified OwnerId does not exist or is not an Owner.");
-                TempData["ErrorMessage"] = "Owner validation failed.";
-                return View("Create", residence);
-            }
-
-            _context.Residences.Add(residence);
-            _context.SaveChanges();
-
-            TempData["SuccessMessage"] = "Residence created successfully!";
-            return RedirectToAction(nameof(Index));
-        }
+    
     }
 }

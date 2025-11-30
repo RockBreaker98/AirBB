@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AirBB</title>
 
-        <link rel="stylesheet" href="./css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
 
-    <!-- Font Awesome (CDN OK because it is not a system dependency) -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
 </head>
 
 <body class="d-flex flex-column min-vh-100 bg-light">
@@ -26,7 +26,7 @@
                 </a>
 
                 <!-- Toggle -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarNav" aria-controls="navbarNav"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -36,7 +36,6 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                        <!-- Reservations -->
                         <li class="nav-item">
                             <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Reservation" ? "active fw-semibold text-primary" : "")"
                                asp-controller="Reservation" asp-action="Index">
@@ -44,7 +43,6 @@
                             </a>
                         </li>
 
-                        <!-- Admin -->
                         <li class="nav-item">
                             <a class="nav-link @(ViewContext.RouteData.Values["area"]?.ToString() == "Admin" ? "active fw-semibold text-primary" : "")"
                                asp-area="Admin" asp-controller="Home" asp-action="Index">
@@ -57,7 +55,7 @@
             </div>
         </nav>
 
-        <!-- Success / Alert Messages -->
+        <!-- Success Message -->
         @if (TempData["Message"] != null)
         {
             <div class="alert alert-success text-center rounded-0 mb-0">
@@ -65,6 +63,7 @@
             </div>
         }
 
+        <!-- Error Message -->
         @if (TempData["ErrorMessage"] != null)
         {
             <div class="alert alert-danger text-center rounded-0 mb-0">
@@ -78,12 +77,14 @@
         @RenderBody()
     </main>
 
-    <!-- Scripts (Local — NOT CDN) -->
+    <!-- Scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
+    <!-- REQUIRED BY FEEDBACK -->
+    <script src="~/js/validateBuiltYear.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

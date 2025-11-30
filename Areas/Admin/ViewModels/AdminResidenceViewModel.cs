@@ -20,8 +20,12 @@ namespace AirBB.Areas.Admin.Models
 
         [Required(ErrorMessage = "OwnerId is required.")]
         [Display(Name = "Owner Id")]
-        [Remote(action: "ValidateOwnerId", controller: "Users", areaName: "Admin",
-                ErrorMessage = "OwnerId must exist and be an Owner.")]
+        [Remote(
+            action: "CheckOwnerId",
+            controller: "Validation",
+            areaName: "Admin",
+            ErrorMessage = "OwnerId must exist and be an Owner."
+        )]
         public int OwnerId { get; set; }
 
         [Required(ErrorMessage = "Accommodation is required.")]

@@ -1,4 +1,5 @@
-using AirBB.Models;
+using AirBB.Models.DataLayer.Repositories;
+using AirBB.Models.DataLayer;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,14 @@ builder.Services.AddHttpContextAccessor();
 // 2️⃣ Register EF Core
 builder.Services.AddDbContext<AirBBContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("AirBBContext")));
+
+// 2️⃣ Register Repositories
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<LocationRepository>();
+builder.Services.AddScoped<ResidenceRepository>();
+builder.Services.AddScoped<CategoryRepository>();
+builder.Services.AddScoped<ExperienceRepository>();
 
 // 3️⃣ Register Session
 builder.Services.AddDistributedMemoryCache();

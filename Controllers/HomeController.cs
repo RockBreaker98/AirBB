@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;         // for Session GetInt32/SetInt32
 using AirBB.Models;
+using AirBB.Models.DataLayer;
+using AirBB.Models.ViewModels;
+using AirBB.Models.Utilities;
 
 namespace AirBB.Controllers
 {
